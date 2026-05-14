@@ -172,7 +172,7 @@
                 <ul class="info-list">
                     <li><strong>ID:</strong> {{ aviso.id }}</li>
                     <li><strong>Categoría:</strong> {{ aviso.categoria }}</li>
-                    <li><strong>Fecha del Evento:</strong> {{ aviso.fecha.strftime('%d/%m/%Y') }}</li>
+                    <li><strong>Fecha del Evento:</strong> {{ aviso.fecha_evento.strftime('%d/%m/%Y') if aviso.fecha_evento else 'Sin fecha de evento' }}</li>
                 </ul>
             </div>
         </div>
