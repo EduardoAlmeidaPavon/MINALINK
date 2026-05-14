@@ -136,6 +136,9 @@ def actualizar_aviso(id):
     aviso.titulo = request.form['titulo']
     aviso.categoria = request.form['categoria']
     aviso.descripcion_corta = request.form['descripcion']
+    fecha_evento_str = request.form.get('fecha_evento')
+    if fecha_evento_str:
+        aviso.fecha_evento = datetime.fromisoformat(fecha_evento_str).date()
     file = request.files.get('imagen_file')
     if file and file.filename and allowed_file(file.filename):
         filename = secure_filename(file.filename)
