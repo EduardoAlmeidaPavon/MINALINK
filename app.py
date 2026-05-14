@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345@localhost/sistema_avisos'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:uHsWBNojbGmKIvQfiyEjFfRJJtaRHJkt@yamanote.proxy.rlwy.net:31918/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
