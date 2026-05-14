@@ -79,7 +79,7 @@
                     <span class="tag-badge">{{ aviso.categoria }}</span>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ aviso.titulo }}</h3>
+                    <h3 class="aviso-titulo">{{ aviso.titulo }}</h3>
                     <p class="card-text">{{ aviso.descripcion_corta }}</p>
                     <a href="/detalle_aviso/{{ aviso.id }}" class="btn-more">Saber más &rarr;</a>
                 </div>
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <script src="js/mobile-menu.js"></script>
+    <script src="/js/mobile-menu.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
