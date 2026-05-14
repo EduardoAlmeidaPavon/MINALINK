@@ -1,5 +1,5 @@
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import os
 from werkzeug.utils import secure_filename
@@ -105,11 +105,15 @@ def guardar_aviso():
     elif fecha:
         fecha_evento = datetime.fromisoformat(fecha).date()
 
+    zona_mexico = timezone(timedelta(hours=-6))
+    fecha_publicacion = datetime.now(zona_mexico).replace(tzinfo=None)
+
     nuevo_aviso = Aviso(
         titulo=titulo,
         categoria=categoria,
         descripcion_corta=descripcion,
         imagen_portada=imagen,
+        fecha=fecha_publicacion,
         fecha_evento=fecha_evento
     )
 
