@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Contacto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="/Menu.html" class="logo-link">
+            <div class="logo"><img src="/img/logo.png" alt="Logo TecNM" class="logo-img"> MinaLink</div>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html">Avisos</a>
+            <a href="/Calendario.html">Calendario</a>
+            <a href="/Contacto.html" class="active">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html">Avisos</a>
+            <a href="/Calendario.html">Calendario</a>
+            <a href="/Contacto.html" class="active">Contacto</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="header-section">
+            <h1>Ponte en Contacto</h1>
+            <p>¿Tienes alguna duda sobre los avisos, inscripciones o eventos? Estamos aquí para ayudarte.</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <div class="info-card">
+                <h2>Información de contacto</h2>
+
+                <div class="info-item">
+                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-content">
+                        <h3>Ubicación</h3>
+                        <p>Av. Educación 123, Col. Saber, Ciudad Universitaria, CP 04510</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                    <div class="info-content">
+                        <h3>Teléfono</h3>
+                        <p>+52 (555) 123-4567 / +52 (555) 987-6543</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                    <div class="info-content">
+                        <h3>Correo electrónico</h3>
+                        <p>contacto@minalink.edu.mx</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box"><i class="fas fa-clock"></i></div>
+                    <div class="info-content">
+                        <h3>Horario de Atención</h3>
+                        <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2>Envíanos un mensaje</h2>
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nombre completo</label>
+                            <input type="text" placeholder="Escribe tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label>Correo electrónico</label>
+                            <input type="email" placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Asunto</label>
+                            <input type="text" placeholder="¿Sobre qué quieres consultar?">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Mensaje</label>
+                            <textarea rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Enviar mensaje <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/mobile-menu.js"></script>
+</body>
+
+</html>

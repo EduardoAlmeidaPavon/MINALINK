@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Todos los Avisos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        #adminAvisosBtn {
+            border-color: rgba(10, 31, 68, 0.15);
+            background: rgba(10, 31, 68, 0.06);
+            color: #0a1f44;
+            font-weight: 600;
+        }
+
+        #adminAvisosBtn:hover {
+            background: rgba(10, 31, 68, 0.12);
+            color: #0a1f44;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/Menu.html" class="logo-link">
+            <div class="logo">
+                <img src="/img/logo.png" alt="Logo TecNM" class="logo-img">
+                <span>MinaLink</span>
+            </div>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html" class="active">Avisos</a>
+            <a href="/Calendario.html">Calendario</a>
+            <a href="/Contacto.html">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html" class="active">Avisos</a>
+            <a href="/Calendario.html">Calendario</a>
+            <a href="/Contacto.html">Contacto</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="title-section">
+                <h1>Todos los Avisos</h1>
+                <p>Explora la lista completa de noticias y comunicados oficiales.</p>
+            </div>
+
+            <a href="/AdministrarAvisos.html" class="btn-back" id="adminAvisosBtn" style="display: none;">
+                <i class="fas fa-tools"></i> Administrar Avisos
+            </a>
+
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar avisos...">
+            </div>
+        </div>
+
+        <div class="grid-avisos">
+
+            {% for aviso in avisos %}
+            <div class="card">
+                <div class="card-img"
+                    style="background-image: url('{{ aviso.imagen_portada }}');">
+                    <span class="tag-badge">{{ aviso.categoria }}</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ aviso.titulo }}</h3>
+                    <p class="card-text">{{ aviso.descripcion_corta }}</p>
+                    <a href="/detalle_aviso/{{ aviso.id }}" class="btn-more">Saber más &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <script src="js/mobile-menu.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminAvisosBtn = document.getElementById('adminAvisosBtn');
+            const userRole = sessionStorage.getItem('minalink_role');
+            const username = sessionStorage.getItem('minalink_user') || '';
+            const isAdminByUser = /^ADM/i.test(username);
+
+            if (adminAvisosBtn && (userRole === 'administrador' || isAdminByUser)) {
+                adminAvisosBtn.style.display = 'inline-flex';
+            }
+        });
+    </script>
+
+</body>
+</html>

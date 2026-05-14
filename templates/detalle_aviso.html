@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Detalle del Aviso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1a3d74;
+            --dark-blue: #0a1f44;
+            --light-blue: #eef2f7;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            padding: 15px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .article-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: var(--primary-blue);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .content-body p {
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .info-box {
+            background-color: var(--light-blue);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .info-box h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .hero-image {
+                height: 220px;
+            }
+
+            .content-body p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/Menu.html" class="logo">
+            <img src="/img/logo.png" alt="Logo TecNM" class="logo-img">
+            MinaLink
+        </a>
+    </header>
+
+    <main class="article-container">
+
+        <a href="/Avisos.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver a avisos
+        </a>
+
+        <img src="{{ aviso.imagen_portada }}" alt="Imagen del aviso" class="hero-image">
+
+        <div class="meta-info">
+            <span><i class="far fa-calendar"></i> Publicado: {{ aviso.fecha.strftime('%d/%m/%Y') }}</span>
+            <span><i class="far fa-folder"></i> Categoría: {{ aviso.categoria }}</span>
+        </div>
+
+        <h1>{{ aviso.titulo }}</h1>
+
+        <div class="content-body">
+            <p>{{ aviso.descripcion_corta }}</p>
+
+            <div class="info-box">
+                <h3>Información del Aviso</h3>
+                <ul class="info-list">
+                    <li><strong>ID:</strong> {{ aviso.id }}</li>
+                    <li><strong>Categoría:</strong> {{ aviso.categoria }}</li>
+                    <li><strong>Fecha del Evento:</strong> {{ aviso.fecha.strftime('%d/%m/%Y') }}</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

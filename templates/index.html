@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Sistema de Integración Escolar</title>
+    <meta name="description" content="Sistema de Integración Escolar SIE - Plataforma educativa del Tecnológico Nacional de México.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="dashboard-page">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <header class="dashboard-header" style="border-bottom: none; padding-top: 45px;">
+            <div class="center-brand">
+                <div class="logo-glow-wrapper">
+                    <img src="/img/logo.png" alt="Logo TecNM" class="brand-logo">
+                    <div class="glow-ring ring-1"></div>
+                    <div class="glow-ring ring-2"></div>
+                </div>
+                <h1 class="brand-title">MINALINK</h1>
+                <div class="brand-institution">Instituto Tecnológico de Minatitlán</div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="cards-container">
+                
+                <div class="role-card estudiante" data-role="estudiante" data-url="IniciarSesion.html">
+                    <div class="card-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2 class="card-title">Estudiantes</h2>
+                    <button class="card-btn" data-role="estudiante">
+                        Ingresar como Estudiante
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="role-card administrador" data-role="administrador" data-url="IniciarSesionAdministrador.html">
+                    <div class="card-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h2 class="card-title">Administrador</h2>
+                    <button class="card-btn" data-role="administrador">
+                        Ingresar como Administrador
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>© 2026 MinaLink — Instituto Tecnológico de Minatitlán | Todos los derechos reservados</p>
+            <p style="font-size: 11px; margin-top: 8px;">SIE & PLATAFORMA ESCOLAR</p>
+        </footer>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-content">
+            <div class="check-circle">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 id="successTitle">Accediendo al Módulo</h3>
+            <p id="successMessage">Redirigiendo al panel correspondiente...</p>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>

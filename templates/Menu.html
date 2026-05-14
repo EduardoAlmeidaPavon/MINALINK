@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Comunidad Educativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS EXTERNO -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* Botón Cerrar Sesión - Desktop */
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.8);
+            border-color: rgba(239, 68, 68, 0.9);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-logout i {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-logout:hover i {
+            transform: translateX(-2px);
+        }
+
+        /* Botón Cerrar Sesión - Mobile */
+        .mobile-nav-content .btn-logout-mobile {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .mobile-nav-content .btn-logout-mobile:hover {
+            background: rgba(239, 68, 68, 0.4);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <nav>
+            <a href="/index.html" class="logo">
+                <img src="/img/logo.png" alt="Logo TecNM" class="logo-img">
+                MinaLink
+            </a>
+            <button class="hamburger hero-hamburger" id="hamburgerBtn" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="/Menu.html" class="active">Inicio</a>
+                <a href="/Avisos.html">Avisos</a>
+                <a href="/Calendario.html">Calendario</a>
+                <a href="/Contacto.html">Contacto</a>
+                <a href="#" class="btn-logout" id="logoutBtn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <h1>Tu puerta de enlace a la <strong>comunidad educativa</strong></h1>
+            <p>Noticias de última hora, eventos académicos y comunicados oficiales en un solo lugar.</p>
+            <div class="cta-container">
+                <a href="/Avisos.html" class="btn btn-primary">Explorar Avisos &rsaquo;</a>
+                <a href="/Calendario.html" class="btn btn-outline">📅 Ver Calendario</a>
+            </div>
+        </div>
+        <div class="bottom-fade"></div>
+    </section>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+            <a href="/Menu.html" class="active">Inicio</a>
+            <a href="/Avisos.html">Avisos</a>
+            <a href="/Calendario.html">Calendario</a>
+            <a href="/Contacto.html">Contacto</a>
+            <a href="#" class="btn-logout-mobile" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </div>
+    </div>
+
+    <main class="noticias-section" id="avisos">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h2 style="font-size: 36px; color: var(--primary-blue);">Avisos Recientes</h2>
+                <p style="color: var(--text-gray);">Mantente informado con las novedades de nuestra institución.</p>
+            </div>
+            <a href="/Avisos.html" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">Ver todos
+                &rarr;</a>
+        </div>
+
+        <div class="cards-grid">
+            {% for aviso in avisos %}
+            <article class="card">
+                <div
+                    style="height: 220px; background: url('{{ aviso.imagen_portada }}') center/cover; position: relative;">
+                    <span class="badge">{{ aviso.categoria }}</span>
+                </div>
+                <div style="padding: 30px;">
+                    <div style="font-size: 13px; color: #aaa; margin-bottom: 10px;">📅 {{ aviso.fecha.strftime('%d %b').upper() }} • 🏷️ {{ aviso.categoria.upper() }}</div>
+                    <h3 style="color: var(--primary-blue); margin-bottom: 15px;">{{ aviso.titulo }}</h3>
+                    <p style="color: var(--text-gray); font-size: 15px; margin-bottom: 20px;">{{ aviso.descripcion_corta }}</p>
+                    <a href="/detalle_aviso/{{ aviso.id }}"
+                        style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">Saber más
+                        &rarr;</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer id="footer-contacto">
+        <div class="footer-inner">
+        </div>
+    </footer>
+
+    <script src="/js/mobile-menu.js"></script>
+    <script>
+        function cerrarSesion() {
+            sessionStorage.removeItem('minalink_user');
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+
+</html>

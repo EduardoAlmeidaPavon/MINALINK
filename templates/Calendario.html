@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaLink - Calendario Interactivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="/Menu.html" class="logo-link">
+            <div class="logo"><img src="/img/logo.png" alt="Logo TecNM" class="logo-img"> MinaLink</div>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html">Avisos</a>
+            <a href="#" class="active">Calendario</a>
+            <a href="/Contacto.html">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+            <a href="/Menu.html">Inicio</a>
+            <a href="/Avisos.html">Avisos</a>
+            <a href="#" class="active">Calendario</a>
+            <a href="/Contacto.html">Contacto</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cal-header">
+            <div class="cal-title">
+                <img src="/img/logo.png" alt="Logo TecNM" class="logo-img"> MinaLink
+            </div>
+            <div class="cal-controls">
+                <span id="current-month" style="font-size: 18px; font-weight: 500;"></span>
+                <div>
+                    <button class="btn-nav" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn-nav" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                    {% if rol == "admin" %}
+                    <button type="button" class="btn-nav" onclick="toggleEventForm()" title="Agregar evento">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="cal-grid" id="calendarGrid">
+        </div>
+    </div>
+
+    <div id="event-form-panel"
+        style="display: none; max-width: 1100px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <h3 style="margin-bottom: 15px; color: var(--primary-blue);">Agregar evento</h3>
+        <form action="/guardar_aviso" method="POST" style="display: grid; gap: 12px;">
+            <input type="hidden" name="origen" value="calendario">
+            <input type="text" name="titulo" placeholder="Título" required>
+            <input type="text" name="categoria" placeholder="Categoría" required>
+            <textarea name="descripcion" placeholder="Descripción" required></textarea>
+            <input type="text" name="imagen" placeholder="URL de imagen" required>
+            <input type="date" name="fecha" required>
+            <button type="submit">Guardar evento</button>
+        </form>
+    </div>
+
+    <div id="event-panel">
+        <h3 id="panel-date" style="margin-bottom: 15px; color: var(--primary-blue);"></h3>
+        <div id="event-list"></div>
+    </div>
+
+    {% set avisos_calendar_data = [] %}
+    {% for aviso in avisos %}
+        {% if aviso.fecha %}
+            {% set _ = avisos_calendar_data.append({
+                "fecha": aviso.fecha_evento.strftime('%Y-%m-%d') if aviso.fecha_evento else aviso.fecha.strftime('%Y-%m-%d'),
+                "titulo": aviso.titulo,
+                "categoria": aviso.categoria,
+                "descripcion": aviso.descripcion_corta
+            }) %}
+        {% endif %}
+    {% endfor %}
+
+    <script id="avisos-calendar-data" type="application/json">{{ avisos_calendar_data | tojson }}</script>
+    <script src="js/script.js"></script>
+    <script>
+        const avisosCalendarData = JSON.parse(
+            document.getElementById('avisos-calendar-data').textContent
+        );
+
+        Object.keys(eventsData).forEach((key) => delete eventsData[key]);
+
+        avisosCalendarData.forEach((aviso) => {
+            if (!eventsData[aviso.fecha]) {
+                eventsData[aviso.fecha] = [];
+            }
+
+            eventsData[aviso.fecha].push({
+                title: aviso.titulo,
+                category: aviso.categoria,
+                description: aviso.descripcion
+            });
+        });
+
+        function toggleEventForm() {
+            const formPanel = document.getElementById('event-form-panel');
+            formPanel.style.display = formPanel.style.display === 'none' ? 'block' : 'none';
+        }
+
+        currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+        renderCalendar = function () {
+            const grid = document.getElementById('calendarGrid');
+            const monthText = document.getElementById('current-month');
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+            grid.innerHTML = '';
+            monthText.innerText = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+            ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].forEach(day => {
+                grid.innerHTML += `<div class="day-name">${day}</div>`;
+            });
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            let firstDayIndex = new Date(year, month, 1).getDay() - 1;
+            if (firstDayIndex === -1) firstDayIndex = 6;
+
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const prevLastDay = new Date(year, month, 0).getDate();
+
+            for (let i = firstDayIndex; i > 0; i--) {
+                grid.innerHTML += `<div class="day gray"><span class="day-number">${prevLastDay - i + 1}</span></div>`;
+            }
+
+            for (let i = 1; i <= lastDay; i++) {
+                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                const isToday = new Date().toDateString() === new Date(year, month, i).toDateString();
+                const dayEvents = eventsData[dateString] || [];
+
+                let eventHtml = '';
+                if (dayEvents.length > 0) {
+                    const label = `${dayEvents.length} evento${dayEvents.length > 1 ? 's' : ''}`;
+                    eventHtml = `<div class="event-dot">${label}</div>`;
+                }
+
+                grid.innerHTML += `
+                    <div class="day ${isToday ? 'today' : ''}" onclick="showEvents('${dateString}', ${i}, this)">
+                        <span class="day-number">${i}</span>
+                        ${eventHtml}
+                    </div>
+                `;
+            }
+        };
+
+        showEvents = function (dateKey, dayNumber, dayElement = null) {
+            const panel = document.getElementById('event-panel');
+            const list = document.getElementById('event-list');
+            const title = document.getElementById('panel-date');
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const dayEvents = eventsData[dateKey] || [];
+
+            list.innerHTML = '';
+            title.innerText = `Eventos del ${dayNumber} de ${monthNames[currentDate.getMonth()]}, ${currentDate.getFullYear()}`;
+
+            if (dayEvents.length > 0) {
+                dayEvents.forEach((ev) => {
+                    list.innerHTML += `
+                        <div class="event-detail-item">
+                            <strong>${ev.title}</strong><br>
+                            <small><strong>Categoría:</strong> ${ev.category}</small><br>
+                            <small>${ev.description}</small>
+                        </div>
+                    `;
+                });
+            } else {
+                list.innerHTML = '<p style="color: #94a3b8;">No hay eventos programados para este día.</p>';
+            }
+
+            panel.style.display = 'block';
+
+            document.querySelectorAll('.day').forEach((day) => day.classList.remove('selected'));
+            if (dayElement) {
+                dayElement.classList.add('selected');
+            }
+        };
+
+        document.getElementById('event-panel').style.display = 'none';
+        renderCalendar();
+    </script>
+    <script src="js/mobile-menu.js"></script>
+</body>
+
+</html>
