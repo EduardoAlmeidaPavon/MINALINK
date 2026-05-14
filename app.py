@@ -99,21 +99,17 @@ def guardar_aviso():
     fecha = request.form.get('fecha')
     fecha_evento_str = request.form.get('fecha_evento')
 
-    fecha_aviso = None
     fecha_evento = None
     if fecha_evento_str:
         fecha_evento = datetime.fromisoformat(fecha_evento_str).date()
-        fecha_aviso = datetime.fromisoformat(fecha_evento_str)
     elif fecha:
-        fecha_aviso = datetime.fromisoformat(fecha)
-        fecha_evento = fecha_aviso.date()
+        fecha_evento = datetime.fromisoformat(fecha).date()
 
     nuevo_aviso = Aviso(
         titulo=titulo,
         categoria=categoria,
         descripcion_corta=descripcion,
         imagen_portada=imagen,
-        fecha=fecha_aviso if fecha_aviso else db.func.now(),
         fecha_evento=fecha_evento
     )
 
