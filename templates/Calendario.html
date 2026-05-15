@@ -67,7 +67,12 @@
             <input type="hidden" name="origen" value="calendario">
             <input type="hidden" name="imagen" value="https://via.placeholder.com/600x400?text=Sin+imagen">
             <input type="text" name="titulo" placeholder="Título" required>
-            <input type="text" name="categoria" placeholder="Categoría" required>
+            <select name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="academico">Académico</option>
+            <option value="deportes">Deportes</option>
+            <option value="cultura">Cultura</option>
+        </select>
             <textarea name="descripcion" placeholder="Descripción" required></textarea>
             <input type="date" name="fecha" required>
             <button type="submit">Guardar evento</button>
