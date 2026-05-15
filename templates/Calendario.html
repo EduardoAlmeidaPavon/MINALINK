@@ -65,10 +65,10 @@
         <h3 style="margin-bottom: 15px; color: var(--primary-blue);">Agregar evento</h3>
         <form action="/guardar_aviso" method="POST" style="display: grid; gap: 12px;">
             <input type="hidden" name="origen" value="calendario">
+            <input type="hidden" name="imagen" value="">
             <input type="text" name="titulo" placeholder="Título" required>
             <input type="text" name="categoria" placeholder="Categoría" required>
             <textarea name="descripcion" placeholder="Descripción" required></textarea>
-            <input type="text" name="imagen" placeholder="URL de imagen" required>
             <input type="date" name="fecha" required>
             <button type="submit">Guardar evento</button>
         </form>
@@ -92,7 +92,7 @@
     {% endfor %}
 
     <script id="avisos-calendar-data" type="application/json">{{ avisos_calendar_data | tojson }}</script>
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
     <script>
         const avisosCalendarData = JSON.parse(
             document.getElementById('avisos-calendar-data').textContent
@@ -199,7 +199,7 @@
         document.getElementById('event-panel').style.display = 'none';
         renderCalendar();
     </script>
-    <script src="js/mobile-menu.js"></script>
+    <script src="/js/mobile-menu.js"></script>
 </body>
 
 </html>
